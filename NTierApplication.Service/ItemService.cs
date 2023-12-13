@@ -1,4 +1,5 @@
 ﻿using NTierApplication.DataAccess.Models;
+using NTierApplication.Errors;
 using NTierApplication.Repository;
 using NTierApplication.Service.ViewModels;
 using System;
@@ -24,6 +25,15 @@ namespace NTierApplication.Service
             {
                 throw new ArgumentNullException(nameof(item));
             }
+            if (string.IsNullOrWhiteSpace(item.ItemName))
+            {
+                throw new ParameterInvalidException("ItemName cannot be empty");
+            }
+            if (item.ItemType < 0)
+            {
+                throw new ParameterInvalidException("Item type must be equal or greater than 0");
+            }
+
             var entity = new Item
             {
                 ItemDate = item.ItemDate,
@@ -38,6 +48,27 @@ namespace NTierApplication.Service
         public void Delete(long itemId)
         {
             throw new NotImplementedException();
+        }
+
+        public ItemViewModel GetById(long id)
+        {
+            var result = ItemRepository.GetAll()
+                .Select(x => new ItemViewModel
+                {
+                    ItemId = x.ItemId,
+                    ItemDate = x.ItemDate,
+                    ItemName = x.ItemName,
+                    ItemType = x.ItemType
+                })
+                .FirstOrDefault(x => x.ItemId == id);
+
+            if (result == null)
+            {
+                throw new EntryNotFoundException("No such item");
+            }
+            return result;
+            //.Where(x => x.ItemId == id)
+            //.FirstOrDefault();
         }
 
         public ICollection<ItemViewModel> GetItems()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NTierApplication.Service;
 using NTierApplication.Service.ViewModels;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NTierApplication.Web.Controllers
 {
@@ -15,7 +16,9 @@ namespace NTierApplication.Web.Controllers
             ItemService = itemService;
         }
 
-        [HttpGet(Name = "GetAll")]
+        [HttpGet]
+        [Route("")]
+        [SwaggerOperation(OperationId = "GetAll")]
         public ICollection<ItemViewModel> GetAll()
         {
             return ItemService.GetItems();
@@ -26,6 +29,14 @@ namespace NTierApplication.Web.Controllers
         {
             ItemService.CreateNew(itemViewModel);
             return itemViewModel;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        [SwaggerOperation(OperationId = "GetById")]
+        public ItemViewModel GetById(long id)
+        {
+            return ItemService.GetById(id);
         }
     }
 }

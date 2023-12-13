@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NTierApplication.Core\NTierApplication.Core.csproj" />
     <ProjectReference Include="..\NTierApplication.Repository\NTierApplication.Repository.csproj" />
   </ItemGroup>
 

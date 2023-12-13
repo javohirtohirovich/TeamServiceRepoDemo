@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierApplication.Web", "NTi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierApplication.DataAccess", "NTierApplication.DataAccess\NTierApplication.DataAccess.csproj", "{C3F32489-3E11-4BEC-80EB-4A811D1E5463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierApplication.Repository", "NTierApplication.Repository\NTierApplication.Repository.csproj", "{F04C80CA-4B68-43AC-9E9B-A830DE6085B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierApplication.Repository", "NTierApplication.Repository\NTierApplication.Repository.csproj", "{F04C80CA-4B68-43AC-9E9B-A830DE6085B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierApplication.Service", "NTierApplication.Service\NTierApplication.Service.csproj", "{080814F6-7AFD-4AE2-B613-1CA75114055B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NTierApplication.Service", "NTierApplication.Service\NTierApplication.Service.csproj", "{080814F6-7AFD-4AE2-B613-1CA75114055B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NTierApplication.Core", "NTierApplication.Core\NTierApplication.Core.csproj", "{953321DD-7126-4AEC-AC03-C4B45B8FA946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{080814F6-7AFD-4AE2-B613-1CA75114055B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{080814F6-7AFD-4AE2-B613-1CA75114055B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{080814F6-7AFD-4AE2-B613-1CA75114055B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953321DD-7126-4AEC-AC03-C4B45B8FA946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953321DD-7126-4AEC-AC03-C4B45B8FA946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953321DD-7126-4AEC-AC03-C4B45B8FA946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953321DD-7126-4AEC-AC03-C4B45B8FA946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

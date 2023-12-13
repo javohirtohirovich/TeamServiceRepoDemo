@@ -19,6 +19,11 @@ namespace NTierApplication.Service
             
         }
 
+        public ItemViewModel GetById(long id)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<ItemViewModel> GetItems()
         {
             return new List<ItemViewModel>();

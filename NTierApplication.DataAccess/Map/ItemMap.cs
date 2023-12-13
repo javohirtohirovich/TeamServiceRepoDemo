@@ -16,6 +16,8 @@ namespace NTierApplication.DataAccess.Map
             builder.ToTable("Item");
 
             builder.Property(t => t.ItemDate).HasColumnType("datetime2");
+            builder.Property(t => t.ItemType).HasColumnType("int").IsRequired();
+            
         }
     }
 }

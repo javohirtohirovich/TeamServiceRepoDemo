@@ -8,5 +8,6 @@ namespace NTierApplication.Service
         void Update(ItemViewModel item);
         void Delete(long itemId);
         ICollection<ItemViewModel> GetItems();
+        ItemViewModel GetById(long id);
     }
 }
