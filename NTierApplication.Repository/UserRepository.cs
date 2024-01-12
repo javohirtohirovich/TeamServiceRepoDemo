@@ -1,0 +1,52 @@
+﻿using Microsoft.EntityFrameworkCore;
+using NTierApplication.DataAccess.Models;
+using NTierApplication.DataAccess;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NTierApplication.Repository;
+
+public class UserRepository:IUserRepository
+{
+
+    private MainContext DbContext;
+
+    public UserRepository(MainContext dbContext)
+    {
+        DbContext = dbContext;
+    }
+
+    public IQueryable<User> GetAll()
+    {
+        return DbContext.Users;
+    }
+
+    public void Delete(User user)
+    {
+        if (DbContext.Entry(user).State != EntityState.Deleted)
+        {
+            DbContext.Users.Remove(user);
+        }
+    }
+
+    public void Insert(User user)
+    {
+        DbContext.Users.Add(user);
+    }
+
+    public int SaveChanges()
+    {
+        return DbContext.SaveChanges();
+    }
+
+    public void Update(User user)
+    {
+        if (DbContext.Entry(user).State != EntityState.Modified)
+        {
+            DbContext.Entry(user).State = EntityState.Modified;
+        }
+    }
+}

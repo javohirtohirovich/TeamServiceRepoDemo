@@ -2,11 +2,6 @@
 using NTierApplication.Errors;
 using NTierApplication.Repository;
 using NTierApplication.Service.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NTierApplication.Service
 {
@@ -47,7 +42,17 @@ namespace NTierApplication.Service
 
         public void Delete(long itemId)
         {
-            throw new NotImplementedException();
+            var result = ItemRepository.
+                GetAll().
+                Where(x => x.ItemId == itemId).
+                FirstOrDefault();
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(Item));
+            }
+            ItemRepository.Delete(result);
+            ItemRepository.SaveChanges();
+
         }
 
         public ItemViewModel GetById(long id)
@@ -61,14 +66,15 @@ namespace NTierApplication.Service
                     ItemType = x.ItemType
                 })
                 .FirstOrDefault(x => x.ItemId == id);
+            //.Where(x => x.ItemId == id)
+            //.FirstOrDefault();
 
             if (result == null)
             {
                 throw new EntryNotFoundException("No such item");
             }
             return result;
-            //.Where(x => x.ItemId == id)
-            //.FirstOrDefault();
+
         }
 
         public ICollection<ItemViewModel> GetItems()
@@ -84,7 +90,25 @@ namespace NTierApplication.Service
 
         public void Update(ItemViewModel item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            var result = ItemRepository.GetAll().
+                Where(x => x.ItemId == item.ItemId).
+                FirstOrDefault();
+            if (result == null)
+            {
+                throw new EntryNotFoundException("No such item");
+            }
+
+            result.ItemId =(long) item.ItemId;
+            result.ItemDate = item.ItemDate;
+            result.ItemName = item.ItemName;
+            result.ItemType = item.ItemType;
+
+            ItemRepository.Update(result);
+            ItemRepository.SaveChanges();
         }
     }
 }

@@ -12,13 +12,17 @@ builder.Services.AddControllers(options => options.Filters.Add<ApiExceptionFilte
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<IItemService, ItemService>();
 builder.Services.AddTransient<IItemRepository, ItemRepository>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<MainContext>();
 
 builder.Services.AddDbContext<MainContext>(options => {
-    options.UseSqlServer("Data Source=localhost\\MSSQLSERVER2022;User ID=sa;Password=1;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
+    options.UseSqlServer("Data Source=localhost;User ID=sa;Password=3007;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
 });
 
 
