@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NTierApplication.DataAccess;
 using NTierApplication.Repository;
 using NTierApplication.Service;
+using NTierApplication.Service.Helpers;
 using NTierApplication.Web.ActionHelpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddTransient<IItemRepository, ItemRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<MainContext>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<MainContext>(options => {
     options.UseSqlServer("Data Source=localhost;User ID=sa;Password=3007;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
