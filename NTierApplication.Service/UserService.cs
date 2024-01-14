@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using NTierApplication.DataAccess.Models;
+﻿using NTierApplication.DataAccess.Models;
 using NTierApplication.Errors;
 using NTierApplication.Repository;
 using NTierApplication.Service.Helpers;
@@ -13,7 +12,7 @@ public class UserService : IUserService
     private IUserRepository _repository;
     private ITokenService _tokenSerivce;
 
-    public UserService(IUserRepository userRepository,ITokenService tokenService) 
+    public UserService(IUserRepository userRepository, ITokenService tokenService)
     {
         _repository = userRepository;
         _tokenSerivce = tokenService;
@@ -28,7 +27,7 @@ public class UserService : IUserService
         var userDatabase = _repository.GetAll().
           Where(x => x.UserEmail == userLoginView.UserEmail).
           FirstOrDefault();
-        if(userDatabase==null)
+        if (userDatabase == null)
         {
             throw new EntryNotFoundException(nameof(userDatabase));
         }
@@ -64,12 +63,12 @@ public class UserService : IUserService
         User user = new User
         {
             UserName = userView.UserName,
-            UserLastName=userView.UserLastName,
-            UserEmail= userView.UserEmail,
-            Password=passwordHash.Hash,
-            Salt=passwordHash.Salt,
-            CreatedAt=userView.CreatedAt,
-            UpdatedAt=userView.UpdatedAt,
+            UserLastName = userView.UserLastName,
+            UserEmail = userView.UserEmail,
+            Password = passwordHash.Hash,
+            Salt = passwordHash.Salt,
+            CreatedAt = userView.CreatedAt,
+            UpdatedAt = userView.UpdatedAt,
         };
 
         _repository.Insert(user);
@@ -78,13 +77,13 @@ public class UserService : IUserService
         if (result > 0)
         {
             string token = _tokenSerivce.GenerateToken(user);
-            return (Result:true, Token: token);
+            return (Result: true, Token: token);
         }
         else
         {
-            return (Result:false, Token:"");
+            return (Result: false, Token: "");
         }
     }
 
-  
+
 }

@@ -14,7 +14,7 @@ namespace NTierApplication.Service
             ItemRepository = itemRepository;
         }
 
-        public void CreateNew(ItemViewModel item)
+        public int CreateNew(ItemViewModel item)
         {
             if (item == null)
             {
@@ -36,8 +36,10 @@ namespace NTierApplication.Service
                 ItemType = item.ItemType
             };
             ItemRepository.Insert(entity);
-            ItemRepository.SaveChanges();
+            int result=ItemRepository.SaveChanges();
             item.ItemId = entity.ItemId;
+
+            return result;
         }
 
         public void Delete(long itemId)

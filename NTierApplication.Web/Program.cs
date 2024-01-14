@@ -4,6 +4,7 @@ using NTierApplication.Repository;
 using NTierApplication.Service;
 using NTierApplication.Service.Helpers;
 using NTierApplication.Web.ActionHelpers;
+using NTierApplication.Web.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMemoryCache();
+builder.ConfigureCORSPolice();
 
 builder.Services.AddTransient<IItemService, ItemService>();
 builder.Services.AddTransient<IItemRepository, ItemRepository>();
@@ -27,7 +29,8 @@ builder.Services.AddDbContext<MainContext>(options => {
     options.UseSqlServer("Data Source=localhost;User ID=sa;Password=3007;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
 });
 
-
+builder.ConfigurationJwtAuth();
+builder.ConfigureSwaggerAuth();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,7 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowAll");
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

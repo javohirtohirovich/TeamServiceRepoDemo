@@ -11,6 +11,4 @@ public interface IUserService
 {
     public (bool Result, string Token) Register(UserViewModel userView);
     public (bool Result, string Token) Login(UserLoginView userLoginView);
-
-
 }
