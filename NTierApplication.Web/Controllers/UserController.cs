@@ -1,30 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NTierApplication.Service;
 using NTierApplication.Service.ViewModels;
 
 namespace NTierApplication.Web.Controllers;
 
-[Route("api/auth")]
+[Route("api/user")]
 [ApiController]
 public class UserController : ControllerBase
 {
-    private IUserService _service;
+    private readonly IUserService _service;
 
-    public UserController(IUserService userService) 
+    public UserController(IUserService service)
     {
-        _service = userService;
+        _service = service;
     }
-    [HttpPost("register")]
-    public IActionResult Register(UserViewModel userViewModel)
+
+    [HttpGet]
+    public ICollection<UserViewModel> GetAll()
     {
-        var result=_service.Register(userViewModel);
-        return Ok(new { result.Result, result.Token });
+        return _service.GetUsers();
     }
-    [HttpPost("login")]
-    public IActionResult Login(UserLoginView userLoginViewModel)
-    {
-        var result = _service.Login(userLoginViewModel);
-        return Ok(new {result.Result, result.Token});
-    }
+
 }

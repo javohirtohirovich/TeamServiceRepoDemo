@@ -18,6 +18,19 @@ public class UserService : IUserService
         _tokenSerivce = tokenService;
     }
 
+    public ICollection<UserViewModel> GetUsers()
+    {
+        return _repository.GetAll().Select(x => new UserViewModel
+        {
+           UserId=x.UserId,
+           UserName=x.UserName,
+           UserLastName=x.UserLastName,
+           UserEmail=x.UserEmail,
+           CreatedAt=x.CreatedAt,
+           UpdatedAt=x.UpdatedAt,
+        }).ToList();
+    }
+
     public (bool Result, string Token) Login(UserLoginView userLoginView)
     {
         if (userLoginView == null)
@@ -45,7 +58,7 @@ public class UserService : IUserService
 
     }
 
-    public (bool Result, string Token) Register(UserViewModel userView)
+    public (bool Result, string Token) Register(UserRegisterModel userView)
     {
         if (userView == null)
         {

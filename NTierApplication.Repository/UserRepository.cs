@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NTierApplication.DataAccess.Models;
 using NTierApplication.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NTierApplication.DataAccess.Models;
 
 namespace NTierApplication.Repository;
 
-public class UserRepository:IUserRepository
+public class UserRepository : IUserRepository
 {
 
     private MainContext DbContext;

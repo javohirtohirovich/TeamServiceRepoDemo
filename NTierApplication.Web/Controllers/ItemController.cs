@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NTierApplication.DataAccess.Utils;
 using NTierApplication.Service;
 using NTierApplication.Service.ViewModels;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace NTierApplication.Web.Controllers;
 
@@ -10,16 +10,16 @@ namespace NTierApplication.Web.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly IItemService ItemService;
-
+    private readonly int pageSize = 2;
     public ItemController(IItemService itemService)
     {
         ItemService = itemService;
     }
 
     [HttpGet]
-    public ICollection<ItemViewModel> GetAll()
+    public ICollection<ItemViewModel> GetAll(int page=1)
     {
-        return ItemService.GetItems();
+        return ItemService.GetItems(new PaginationParams(page,pageSize));
     }
 
     [HttpGet("{id}")]

@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using NTierApplication.DataAccess;
 using NTierApplication.Repository;
 using NTierApplication.Service;
+using NTierApplication.Service.Common.Interface;
+using NTierApplication.Service.Common.Service;
 using NTierApplication.Service.Helpers;
 using NTierApplication.Web.ActionHelpers;
 using NTierApplication.Web.Configuration;
@@ -22,6 +24,7 @@ builder.Services.AddTransient<IItemService, ItemService>();
 builder.Services.AddTransient<IItemRepository, ItemRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPaginator, Paginator>();
 builder.Services.AddTransient<MainContext>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
