@@ -13,7 +13,7 @@ public class Paginator : IPaginator
     {
         this._accessor=httpContextAccessor;
     }
-    public void Paginate(long itemsCount, PaginationParams @params)
+    public PaginationMetaData Paginate(long itemsCount, PaginationParams @params)
     {
         PaginationMetaData paginationMetaData = new PaginationMetaData();
         paginationMetaData.CurrentPage = @params.PageNumber;
@@ -24,8 +24,7 @@ public class Paginator : IPaginator
         paginationMetaData.HasPrevious = paginationMetaData.CurrentPage > 1;
         paginationMetaData.HasNext = paginationMetaData.CurrentPage < paginationMetaData.TotalPages;
 
-        string jsonContent=JsonConvert.SerializeObject(paginationMetaData);
-        _accessor.HttpContext.Response.Headers.Add("X-Pagination",jsonContent);
+        return paginationMetaData;
 
         
     }

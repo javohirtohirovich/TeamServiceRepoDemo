@@ -4,5 +4,5 @@ namespace NTierApplication.Service.Common.Interface;
 
 public interface IPaginator
 {
-    public void Paginate(long itemsCount, PaginationParams @params);
+    public PaginationMetaData Paginate(long itemsCount, PaginationParams @params);
 }

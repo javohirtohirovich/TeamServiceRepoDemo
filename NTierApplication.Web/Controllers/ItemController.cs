@@ -10,14 +10,13 @@ namespace NTierApplication.Web.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly IItemService ItemService;
-    private readonly int pageSize = 2;
     public ItemController(IItemService itemService)
     {
         ItemService = itemService;
     }
 
     [HttpGet]
-    public ICollection<ItemViewModel> GetAll(int page=1)
+    public ItemGetAllViewModel GetAll(int page=1,int pageSize=10)
     {
         return ItemService.GetItems(new PaginationParams(page,pageSize));
     }

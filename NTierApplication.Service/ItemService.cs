@@ -83,23 +83,31 @@ public class ItemService : IItemService
 
     }
 
-    public ICollection<ItemViewModel> GetItems(PaginationParams @params)
+    public ItemGetAllViewModel GetItems(PaginationParams @params)
     {
         var items = ItemRepository.GetAll()
         .Skip(@params.GetSkipCount())
         .Take(@params.PageSize)
         .ToList();
-
         long itemCount = ItemRepository.GetAll().Count();
-        _paginator.Paginate(itemCount, @params);
+        
+        PaginationMetaData paginationMeta= _paginator.Paginate(itemCount, @params);
 
-        return items.Select(x => new ItemViewModel
+        var itemView= items.Select(x => new ItemViewModel
         {
             ItemId = x.ItemId,
             ItemDate = x.ItemDate,
             ItemName = x.ItemName,
             ItemType = x.ItemType
         }).ToList();
+
+        ItemGetAllViewModel itemGetAllView = new ItemGetAllViewModel
+        {
+            Items = itemView,
+            PaginataionMetaData = paginationMeta
+        };
+        return itemGetAllView;
+
     }
 
     public void Update(ItemViewModel item)

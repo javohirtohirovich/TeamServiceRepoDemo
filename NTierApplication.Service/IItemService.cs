@@ -8,7 +8,7 @@ namespace NTierApplication.Service
         int CreateNew(ItemViewModel item);
         void Update(ItemViewModel item);
         void Delete(long itemId);
-        ICollection<ItemViewModel> GetItems(PaginationParams @params);
+        ItemGetAllViewModel GetItems(PaginationParams @params);
         ItemViewModel GetById(long id);
     }
 }
