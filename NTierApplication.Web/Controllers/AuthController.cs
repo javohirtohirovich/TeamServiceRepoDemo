@@ -21,13 +21,13 @@ public class AuthController : ControllerBase
     public IActionResult Register(UserRegisterModel userViewModel)
     {
         var result=_service.Register(userViewModel);
-        return Ok(new { result.Result, result.Token });
+        return Ok(new { result});
     }
     
     [HttpPost("login")]
     public IActionResult Login(UserLoginView userLoginViewModel)
     {
         var result = _service.Login(userLoginViewModel);
-        return Ok(new {result.Result, result.Token});
+        return Ok(new {result.access_token, result.refresh_token,result.token_type,result.expires});
     }
 }

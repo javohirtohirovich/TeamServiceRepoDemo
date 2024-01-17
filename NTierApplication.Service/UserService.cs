@@ -1,4 +1,5 @@
-﻿using NTierApplication.DataAccess.Models;
+﻿using Microsoft.Extensions.Configuration;
+using NTierApplication.DataAccess.Models;
 using NTierApplication.Errors;
 using NTierApplication.Repository;
 using NTierApplication.Service.Helpers;
@@ -11,11 +12,13 @@ public class UserService : IUserService
 {
     private IUserRepository _repository;
     private ITokenService _tokenSerivce;
+    private readonly IConfiguration _config;
 
-    public UserService(IUserRepository userRepository, ITokenService tokenService)
+    public UserService(IUserRepository userRepository, ITokenService tokenService,IConfiguration configuration)
     {
         _repository = userRepository;
         _tokenSerivce = tokenService;
+        _config = configuration.GetSection("Jwt");
     }
 
     public ICollection<UserViewModel> GetUsers()
@@ -31,14 +34,14 @@ public class UserService : IUserService
         }).ToList();
     }
 
-    public (bool Result, string Token) Login(UserLoginView userLoginView)
+    public (string access_token, string refresh_token, string token_type, long expires) Login(UserLoginView userLoginView)
     {
         if (userLoginView == null)
         {
             throw new ArgumentNullException(nameof(userLoginView));
         }
         var userDatabase = _repository.GetAll().
-          Where(x => x.UserEmail == userLoginView.UserEmail).
+          Where(x => x.UserEmail == userLoginView.UserName).
           FirstOrDefault();
         if (userDatabase == null)
         {
@@ -49,7 +52,8 @@ public class UserService : IUserService
         if (hasherResult == true)
         {
             string token = _tokenSerivce.GenerateToken(userDatabase);
-            return (Result: true, Token: token);
+            long expires_time = long.Parse(_config["Lifetime"])*3600;
+            return (access_token: token,refresh_token:null,token_type:"Bearer",expires:expires_time);
         }
         else
         {
@@ -58,7 +62,7 @@ public class UserService : IUserService
 
     }
 
-    public (bool Result, string Token) Register(UserRegisterModel userView)
+    public bool  Register(UserRegisterModel userView)
     {
         if (userView == null)
         {
@@ -80,8 +84,8 @@ public class UserService : IUserService
             UserEmail = userView.UserEmail,
             Password = passwordHash.Hash,
             Salt = passwordHash.Salt,
-            CreatedAt = userView.CreatedAt,
-            UpdatedAt = userView.UpdatedAt,
+            CreatedAt = TimeHelper.GetDateTime(),
+            UpdatedAt = TimeHelper.GetDateTime(),
         };
 
         _repository.Insert(user);
@@ -89,12 +93,11 @@ public class UserService : IUserService
 
         if (result > 0)
         {
-            string token = _tokenSerivce.GenerateToken(user);
-            return (Result: true, Token: token);
+            return true;
         }
         else
         {
-            return (Result: false, Token: "");
+            return false;
         }
     }
 

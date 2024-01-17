@@ -104,7 +104,7 @@ public class ItemService : IItemService
         ItemGetAllViewModel itemGetAllView = new ItemGetAllViewModel
         {
             Items = itemView,
-            PaginataionMetaData = paginationMeta
+            PaginationMetaData = paginationMeta
         };
         return itemGetAllView;
 
