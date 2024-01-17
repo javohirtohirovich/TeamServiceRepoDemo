@@ -10,7 +10,7 @@ public static class SwaggerAuthConfiguration
         {
             options.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Agile Shop Api",
+                Title = "ItemProject Api",
                 Version = "v1"
             });
 
