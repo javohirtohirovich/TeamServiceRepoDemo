@@ -46,7 +46,7 @@ public class UserService : IUserService
           FirstOrDefault();
         if (userDatabase == null)
         {
-            throw new EntryNotFoundException(nameof(userDatabase));
+            throw new EntryNotFoundException("User not found!");
         }
 
         var hasherResult = PasswordHasher.Verify(userLoginView.Password, userDatabase.Password, userDatabase.Salt);
@@ -58,7 +58,7 @@ public class UserService : IUserService
         }
         else
         {
-            throw new ParameterInvalidException(nameof(userLoginView));
+            throw new ParameterInvalidException("User password wrong!");
         }
 
     }
@@ -74,7 +74,7 @@ public class UserService : IUserService
             FirstOrDefault();
         if (userDatabase != null)
         {
-            throw new DuplicateNameException(nameof(userView));
+            throw new DuplicateNameException("User already exsist!");
         }
 
         var passwordHash = PasswordHasher.Hasher(userView.Password);
