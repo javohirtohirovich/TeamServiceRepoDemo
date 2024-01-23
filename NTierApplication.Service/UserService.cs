@@ -5,6 +5,7 @@ using NTierApplication.Repository;
 using NTierApplication.Service.Helpers;
 using NTierApplication.Service.Helpers.Security;
 using NTierApplication.Service.ViewModels;
+using System.Data;
 
 namespace NTierApplication.Service;
 
@@ -73,7 +74,7 @@ public class UserService : IUserService
             FirstOrDefault();
         if (userDatabase != null)
         {
-            throw new ParameterInvalidException(nameof(userView));
+            throw new DuplicateNameException(nameof(userView));
         }
 
         var passwordHash = PasswordHasher.Hasher(userView.Password);

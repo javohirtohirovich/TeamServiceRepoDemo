@@ -29,7 +29,7 @@ builder.Services.AddTransient<MainContext>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddDbContext<MainContext>(options => {
-    options.UseSqlServer("Data Source=localhost;User ID=sa;Password=3007;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
+    options.UseSqlServer("Data Source=localhost;User ID=sa;Password=3022;Initial Catalog=NTierApplication;TrustServerCertificate=True;");
 });
 
 builder.ConfigurationJwtAuth();

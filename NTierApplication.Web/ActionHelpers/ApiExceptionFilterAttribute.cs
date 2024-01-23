@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NTierApplication.Errors;
+using System.Data;
 
 namespace NTierApplication.Web.ActionHelpers;
 
@@ -17,6 +18,10 @@ public class ApiExceptionFilterAttribute : ExceptionFilterAttribute
         if (actionExecutedContext.Exception is ParameterInvalidException)
         {
             code = 422; // Bad request
+        }
+        if(actionExecutedContext.Exception is DuplicateNameException)
+        {
+            code = 403;
         }
 
         actionExecutedContext.HttpContext.Response.StatusCode = code;
